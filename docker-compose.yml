@@ -22,7 +22,7 @@ services:
     restart: always
     ports:
         - 80:80
-        - 82:13306
+        - 13306:13306
 
   glpi-php.fpm73:
     build: ./php-fpm73/
