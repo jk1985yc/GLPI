@@ -1,0 +1,59 @@
+
+version: '2'
+services:
+
+  glpi-nginx:
+    build: ./nginx/
+    image: glpi-nginx-img:0.0.1
+    container_name: glpi-nginx
+    hostname: nginx
+    networks:
+        - glpi
+    depends_on:
+        - glpi-php.fpm73
+    volumes:
+        - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+        - ./nginx/conf/conf.d:/etc/nginx/conf.d
+        - ./nginx/conf/fastcgi.conf:/etc/nginx/fastcgi.conf
+        - ./www:/www
+        - ./logs:/var/log/nginx
+        - "phpsocket:/var/run"
+        - /var/opt:/var/opt
+    restart: always
+    ports:
+        - 80:80
+        - 82:13306
+
+  glpi-php.fpm73:
+    build: ./php-fpm73/
+    image: glpi-php.fpm73-img:0.0.1
+    container_name: glpi-php.fpm73
+    hostname: php_fpm73
+    networks:
+        - glpi
+    volumes:
+        - ./php-fpm73/conf:/usr/local/etc/php-fpm.d
+        - ./php-fpm73/php/php.ini:/usr/local/etc/php/conf.d/php.ini
+        - ./www:/www
+        - "phpsocket:/var/run"
+    restart: always
+
+  glpi-db:
+    build: ./mysql_db/
+    image: glpi-db-img:0.0.1
+    container_name: glpi-db
+    hostname: mysql
+    networks:
+        - glpi
+    volumes:
+        - ./mysql_db/data:/var/lib/mysql
+        - ./mysql_db/conf/my.cnf:/etc/mysql/my.cnf
+    environment:
+       MYSQL_ROOT_PASSWORD: 1qasde32
+    restart: always 
+
+networks:
+  glpi:
+
+volumes:
+  phpsocket:
