@@ -5,3 +5,5 @@ docker-compose with Nginx MySQL.
 ```
 chmod -R 777 config files marketplace
 ```
+
+### DB connection using container name
