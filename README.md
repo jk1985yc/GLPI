@@ -16,6 +16,6 @@ server = http://$IPor$DomainName:$Port/plugins/fusioninventory/
 ...
 ```
 
-Refer
-https://github.com/fusioninventory/fusioninventory-for-glpi/releases
-https://github.com/fusioninventory/fusioninventory-agent/releases
+Refer  
+https://github.com/fusioninventory/fusioninventory-for-glpi/releases  
+https://github.com/fusioninventory/fusioninventory-agent/releases  
