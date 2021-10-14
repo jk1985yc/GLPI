@@ -55,6 +55,9 @@ RUN pecl install redis && docker-php-ext-enable redis
 # 安裝環境、安裝工具
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+#enable funsioninventory cron job
+COPY ./cron/root /var/spool/cron/crontabs/root
+
 #Time
 ENV TW=Asia/Taipei
 RUN ln -snf /usr/share/zoneinfo/$TW /etc/localtime && echo $TW > /etc/timezone  
